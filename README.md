@@ -9,6 +9,7 @@ Projekt edukacyjny RAG dla dokumentów lotniczych PRC.
 - zapis stron i metadanych do JSONL
 - wykrywanie stron wymagających OCR
 - interfejs OCR (bez zainstalowanego silnika OCR)
+- 3 publiczne dokumenty NASA: 34 strony o taxi-out i ML
 - 10 testów
 
 ## Uruchomienie
