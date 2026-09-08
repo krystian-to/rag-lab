@@ -1,34 +1,32 @@
 # PRC AI Research Assistant
 
-A step-by-step learning project for building and evaluating a retrieval-augmented generation (RAG) system over PRC aviation documents.
+Projekt edukacyjny RAG dla dokumentów lotniczych PRC.
 
-## Current status
+## Aktualny stan — Phase 2
 
-Phase 1: the FastAPI shell is operational, and native PDF text extraction produces structured, page-level JSONL records with source provenance.
+- FastAPI z endpointem `GET /health`
+- odczyt tekstu z PDF przez PyMuPDF
+- zapis stron i metadanych do JSONL
+- wykrywanie stron wymagających OCR
+- interfejs OCR (bez zainstalowanego silnika OCR)
+- 10 testów
 
-## Local Python environment
-
-Activate the existing virtual environment in PowerShell:
+## Uruchomienie
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
-```
-
-Verify the interpreter:
-
-```powershell
-python --version
-python -c "import sys; print(sys.executable)"
-```
-
-## Parse source documents
-
-Place PDF files in `data/raw`, then run:
-
-```powershell
 python scripts/parse_documents.py
+pytest -q
 ```
 
-Page records are written to `data/processed/*.pages.jsonl`. The processed directory is intentionally ignored because its contents can be regenerated from source documents.
+Pliki PDF umieszczamy w `data/raw`. Wyniki trafiają do `data/processed`.
 
-Native extraction is checked with a small OCR-candidate heuristic. The parser accepts an OCR engine through an explicit interface, but no system OCR provider is installed yet. Without a configured engine, suspicious or empty native text is preserved for inspection with `used_ocr=false`.
+## Najbliższy plan
+
+1. Czyszczenie tekstu i chunking
+2. Embeddingi i dense search w Qdrant
+3. BM25, hybrid search i RRF
+4. Reranking i ewaluacja retrievalu
+5. Odpowiedzi LLM z cytowaniem źródeł
+
+Neo4j, LangGraph i lokalny vLLM dodamy dopiero po działającym i zmierzonym podstawowym RAG.
