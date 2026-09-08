@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Local environments and secrets
+.venv/
+.env
+
+# Test and tool caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local application data
+data/processed/
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
