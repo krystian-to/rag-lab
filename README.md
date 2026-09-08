@@ -30,3 +30,5 @@ python scripts/parse_documents.py
 ```
 
 Page records are written to `data/processed/*.pages.jsonl`. The processed directory is intentionally ignored because its contents can be regenerated from source documents.
+
+Native extraction is checked with a small OCR-candidate heuristic. The parser accepts an OCR engine through an explicit interface, but no system OCR provider is installed yet. Without a configured engine, suspicious or empty native text is preserved for inspection with `used_ocr=false`.

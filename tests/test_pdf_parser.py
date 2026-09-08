@@ -3,7 +3,9 @@ from pathlib import Path
 import pymupdf
 import pytest
 
+from app.ingestion.ocr import OcrPolicy
 from app.ingestion.pdf_parser import document_id_from_path, parse_pdf
+from tests.test_ocr import FakeOcrEngine
 
 
 @pytest.fixture
@@ -36,6 +38,24 @@ def test_parse_pdf_preserves_empty_pages(sample_pdf: Path) -> None:
     assert pages[1].text == ""
 
 
+def test_parse_pdf_uses_configured_ocr_only_for_suspicious_page(
+    sample_pdf: Path,
+) -> None:
+    ocr_engine = FakeOcrEngine("Text recovered from page image.")
+
+    pages = parse_pdf(
+        sample_pdf,
+        ocr_engine=ocr_engine,
+        ocr_policy=OcrPolicy(min_alphanumeric_characters=10),
+    )
+
+    assert pages[0].text == "Taxi-out starts at off-block time."
+    assert pages[0].used_ocr is False
+    assert pages[1].text == "Text recovered from page image."
+    assert pages[1].used_ocr is True
+    assert ocr_engine.calls == 1
+
+
 def test_document_id_is_stable_for_the_same_filename() -> None:
     first = document_id_from_path(Path("first/Data Description.pdf"))
     second = document_id_from_path(Path("elsewhere/Data Description.pdf"))
@@ -49,4 +69,3 @@ def test_parse_pdf_rejects_non_pdf(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="Expected a PDF"):
         parse_pdf(text_path)
-
