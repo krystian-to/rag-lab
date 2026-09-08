@@ -4,7 +4,7 @@ A step-by-step learning project for building and evaluating a retrieval-augmente
 
 ## Current status
 
-Phase 0B: the Git repository and minimal Python project structure are initialized. No application dependencies or RAG components have been added yet.
+Phase 1: the FastAPI shell is operational, and native PDF text extraction produces structured, page-level JSONL records with source provenance.
 
 ## Local Python environment
 
@@ -20,3 +20,13 @@ Verify the interpreter:
 python --version
 python -c "import sys; print(sys.executable)"
 ```
+
+## Parse source documents
+
+Place PDF files in `data/raw`, then run:
+
+```powershell
+python scripts/parse_documents.py
+```
+
+Page records are written to `data/processed/*.pages.jsonl`. The processed directory is intentionally ignored because its contents can be regenerated from source documents.

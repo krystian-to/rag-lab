@@ -11,6 +11,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
     "fastapi>=0.116,<1.0",
     "pydantic-settings>=2.10,<3.0",
+    "pymupdf>=1.26,<2.0",
     "uvicorn[standard]>=0.35,<1.0",
 ]
 
@@ -23,3 +24,6 @@ dev = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["app"]
+
+[tool.pytest.ini_options]
+addopts = "--basetemp=.pytest-tmp"
