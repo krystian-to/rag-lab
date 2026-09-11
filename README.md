@@ -50,5 +50,3 @@ Pliki PDF umieszczamy w `data/raw`. Dla każdego dokumentu skrypt zapisuje w
 2. BM25, hybrid search i RRF
 3. Reranking i ewaluacja retrievalu
 4. Odpowiedzi LLM z cytowaniem źródeł
-
-Neo4j, LangGraph i lokalny vLLM dodamy dopiero po działającym i zmierzonym podstawowym RAG.
